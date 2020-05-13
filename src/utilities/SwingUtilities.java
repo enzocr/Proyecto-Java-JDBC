@@ -6,6 +6,12 @@
 package utilities;
 
 import java.awt.HeadlessException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -118,4 +124,22 @@ public class SwingUtilities {
                 showJOptionPane("Tiene registros asociados");
         }
     }
+
+    public static int calculateAge(Date birthDate) {
+        LocalDate bdLocal = convertDateToLocalDate(birthDate);
+        LocalDate today = LocalDate.now();
+         return Period.between(bdLocal, today).getYears();
+       
+    }
+
+    public static java.sql.Date convertUtilToSql(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
+
+    public static LocalDate convertDateToLocalDate(Date date) {
+
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
 }

@@ -6,6 +6,7 @@
 package negocio.clases;
 
 import java.util.Date;
+import utilities.SwingUtilities;
 
 /**
  *
@@ -26,11 +27,11 @@ public class Paciente {
 
     }
 
-    public Paciente(int numAsegurado, String nombre, String direccion, int edad, Date fechaNacimiento, String email, int telefono, String profesion) {
+    public Paciente(int numAsegurado, String nombre, String direccion, Date fechaNacimiento, String email, int telefono, String profesion) {
         this.numAsegurado = numAsegurado;
         this.nombre = nombre;
+        this.edad = SwingUtilities.calculateAge(fechaNacimiento);
         this.direccion = direccion;
-        this.edad = edad;
         this.fechaNacimiento = fechaNacimiento;
         this.email = email;
         this.telefono = telefono;
