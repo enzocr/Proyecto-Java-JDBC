@@ -1,9 +1,11 @@
 package presentacion;
 
-import java.time.LocalDate;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import negocio.bo.PacienteBo;
@@ -468,17 +470,24 @@ public class MantPaciente extends javax.swing.JFrame {
     private void tablePacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePacienteMouseClicked
 
         if (evt.getClickCount() == 2) {
-            int row = tablePaciente.getSelectedRow();
-            numAseguradoTextField.setText(getTableDoctor().getValueAt(row, 0).toString());
-            nombreTextField.setText(getTableDoctor().getValueAt(row, 1).toString());
-            direccionTextField.setText((getTableDoctor().getValueAt(row, 2).toString()));
-          //  datePicker.setDate((Date) getTableDoctor().getValueAt(row, 3));
-            correoTextField.setText(getTableDoctor().getValueAt(row, 4).toString());
-            telefonoTextField.setText((getTableDoctor().getValueAt(row, 5).toString()));
-            profesionTextField.setText(getTableDoctor().getValueAt(row, 6).toString());
 
-            this.numAseguradoTextField.setEnabled(false);
+            try {
+                int row = tablePaciente.getSelectedRow();
+
+                numAseguradoTextField.setText(getTableDoctor().getValueAt(row, 0).toString());
+                nombreTextField.setText(getTableDoctor().getValueAt(row, 1).toString());
+                direccionTextField.setText((getTableDoctor().getValueAt(row, 2).toString()));
+                datePicker.setDate(SwingUtilities.stringToDate(getTableDoctor().getValueAt(row, 4).toString()));
+                correoTextField.setText(getTableDoctor().getValueAt(row, 5).toString());
+                telefonoTextField.setText((getTableDoctor().getValueAt(row, 6).toString()));
+                profesionTextField.setText(getTableDoctor().getValueAt(row, 7).toString());
+                this.numAseguradoTextField.setEnabled(false);
+            } catch (ParseException ex) {
+                Logger.getLogger(MantPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
+
     }//GEN-LAST:event_tablePacienteMouseClicked
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
@@ -487,7 +496,8 @@ public class MantPaciente extends javax.swing.JFrame {
             Paciente obj = new Paciente(
                     Integer.parseInt(this.numAseguradoTextField.getText()),
                     this.nombreTextField.getText(),
-                    this.direccionTextField.getText(), (java.sql.Date) this.datePicker.getDate(),
+                    this.direccionTextField.getText(),
+                    this.datePicker.getDate(),
                     this.correoTextField.getText(),
                     Integer.parseInt(this.telefonoTextField.getText()),
                     this.profesionTextField.getText()
@@ -577,7 +587,7 @@ public class MantPaciente extends javax.swing.JFrame {
             Paciente p = new Paciente(
                     Integer.parseInt(this.numAseguradoTextField.getText()),
                     this.nombreTextField.getText(),
-                    this.direccionTextField.getText(), 
+                    this.direccionTextField.getText(),
                     this.datePicker.getDate(),
                     this.correoTextField.getText(),
                     Integer.parseInt(this.telefonoTextField.getText()),

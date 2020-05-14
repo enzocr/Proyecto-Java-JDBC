@@ -6,12 +6,16 @@
 package utilities;
 
 import java.awt.HeadlessException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -128,13 +132,27 @@ public class SwingUtilities {
     public static int calculateAge(Date birthDate) {
         LocalDate bdLocal = convertDateToLocalDate(birthDate);
         LocalDate today = LocalDate.now();
-         return Period.between(bdLocal, today).getYears();
-       
+        return Period.between(bdLocal, today).getYears();
+
     }
 
     public static java.sql.Date convertUtilToSql(java.util.Date uDate) {
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
         return sDate;
+    }
+
+    public static java.util.Date convertSqlToUtil(java.sql.Date sDate) {
+        java.util.Date utilDate = new java.util.Date(sDate.getTime());
+        return utilDate;
+    }
+
+    public static java.util.Date stringToDate(String stringDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        stringDate = format.format(new Date());
+        return format.parse(stringDate);
+        
+        
     }
 
     public static LocalDate convertDateToLocalDate(Date date) {
