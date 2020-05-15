@@ -10,8 +10,10 @@ import utilities.SwingUtilities;
 
 /**
  *
- * @author enzoq
+ * @author Enzo Quartino Zamora
+ * <github.com/enzocr || email: enzoquartino@gmail.com>
  */
+@SuppressWarnings("serial")
 public class MantDoctor extends javax.swing.JFrame {
 
     private DoctorBo bo;
@@ -509,6 +511,7 @@ public class MantDoctor extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         if (cedulaTextField.getText().isEmpty()) {
+            SwingUtilities.showJOptionPane("Seleccionar doctor a eliminar");
         } else {
             try {
                 int cedula = Integer.parseInt(cedulaTextField.getText());

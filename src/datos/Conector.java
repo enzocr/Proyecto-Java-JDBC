@@ -11,7 +11,8 @@ import java.sql.SQLException;
 
 /**
  *
- * @author enzoq
+ * @author Enzo Quartino Zamora
+ * <github.com/enzocr || email: enzoquartino@gmail.com>
  */
 public class Conector {
 
@@ -48,7 +49,12 @@ public class Conector {
     }
 
     public Connection getConn() {
-        return conn;
+        if (conn == null) {
+            conectarse();
+            return conn;
+        } else {
+            return conn;
+        }
     }
 
     public void setConn(Connection conn) {

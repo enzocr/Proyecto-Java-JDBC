@@ -8,14 +8,10 @@ package utilities;
 import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -23,7 +19,8 @@ import javax.swing.border.Border;
 
 /**
  *
- * @author enzoq
+ * @author Enzo Quartino Zamora
+ * <github.com/enzocr || email: enzoquartino@gmail.com>
  */
 public class SwingUtilities {
 
@@ -151,8 +148,7 @@ public class SwingUtilities {
 
         stringDate = format.format(new Date());
         return format.parse(stringDate);
-        
-        
+
     }
 
     public static LocalDate convertDateToLocalDate(Date date) {

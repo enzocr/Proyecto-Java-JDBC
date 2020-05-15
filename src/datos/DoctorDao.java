@@ -15,7 +15,8 @@ import negocio.clases.Doctor;
 
 /**
  *
- * @author enzoq
+ * @author Enzo Quartino Zamora
+ * <github.com/enzocr || email: enzoquartino@gmail.com>
  */
 public class DoctorDao {
 
@@ -48,7 +49,6 @@ public class DoctorDao {
                 return 1;
             }
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
             if (sqle.getSQLState().startsWith("23")) {
                 return 2;
             } else {
@@ -159,6 +159,7 @@ public class DoctorDao {
         try {
 
             Doctor d = new Doctor();
+            
             if (getConn().conectarse()) {
 
                 setSentence(conn.getConn().prepareStatement("SELECT *"

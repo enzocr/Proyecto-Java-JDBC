@@ -10,7 +10,8 @@ import utilities.SwingUtilities;
 
 /**
  *
- * @author enzoq
+ * @author Enzo Quartino Zamora
+ * <github.com/enzocr || email: enzoquartino@gmail.com>
  */
 public class Paciente {
 

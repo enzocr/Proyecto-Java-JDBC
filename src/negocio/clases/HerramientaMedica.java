@@ -7,12 +7,13 @@ package negocio.clases;
 
 /**
  *
- * @author enzoq
+ * @author Enzo Quartino Zamora
+ * <github.com/enzocr || email: enzoquartino@gmail.com>
  */
 public class HerramientaMedica {
 
     private int codigo;
-    private String varchar;
+    private String descripcion;
     private int cantTotal;
     private int cantidadPrestado;
 
@@ -20,9 +21,9 @@ public class HerramientaMedica {
 
     }
 
-    public HerramientaMedica(int codigo, String varchar, int cantTotal, int cantidadPrestado) {
+    public HerramientaMedica(int codigo, String descripcion, int cantTotal, int cantidadPrestado) {
         this.codigo = codigo;
-        this.varchar = varchar;
+        this.descripcion = descripcion;
         this.cantTotal = cantTotal;
         this.cantidadPrestado = cantidadPrestado;
     }
@@ -35,12 +36,12 @@ public class HerramientaMedica {
         this.codigo = codigo;
     }
 
-    public String getVarchar() {
-        return varchar;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setVarchar(String varchar) {
-        this.varchar = varchar;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public int getCantTotal() {

@@ -7,32 +7,33 @@ package negocio.clases;
 
 /**
  *
- * @author enzoq
+ * @author Enzo Quartino Zamora
+ * <github.com/enzocr || email: enzoquartino@gmail.com>
  */
 public class ExamenFisico {
 
     private int codigo;
-    private Integer numAsegurado;
+    private Paciente paciente;
     private int peso;
     private double altura;
     private int presionArterial;
     private double temperatura;
     private String enfermedad;
-    private Integer cedulaDoctor;
+    private Doctor doctor;
 
     public ExamenFisico() {
 
     }
 
-    public ExamenFisico(int codigo, Integer numAsegurado, int peso, double altura, int presionArterial, double temperatura, String enfermedad, Integer cedulaDoctor) {
+    public ExamenFisico(int codigo, Paciente p, int peso, double altura, int presionArterial, double temperatura, String enfermedad, Doctor d) {
         this.codigo = codigo;
-        this.numAsegurado = numAsegurado;
+        this.paciente = p;
         this.peso = peso;
         this.altura = altura;
         this.presionArterial = presionArterial;
         this.temperatura = temperatura;
         this.enfermedad = enfermedad;
-        this.cedulaDoctor = cedulaDoctor;
+        this.doctor = d;
     }
 
     public int getCodigo() {
@@ -43,12 +44,12 @@ public class ExamenFisico {
         this.codigo = codigo;
     }
 
-    public Integer getNumAsegurado() {
-        return numAsegurado;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setNumAsegurado(Integer numAsegurado) {
-        this.numAsegurado = numAsegurado;
+    public void setPaciente(Paciente p) {
+        this.paciente = p;
     }
 
     public int getPeso() {
@@ -91,12 +92,12 @@ public class ExamenFisico {
         this.enfermedad = enfermedad;
     }
 
-    public Integer getCedulaDoctor() {
-        return cedulaDoctor;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setCedulaDoctor(Integer cedulaDoctor) {
-        this.cedulaDoctor = cedulaDoctor;
+    public void setDoctor(Doctor d) {
+        this.doctor = d;
     }
 
 }
