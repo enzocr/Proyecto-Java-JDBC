@@ -15,17 +15,17 @@ public class Salon {
     private int numSalon;
     private int cantCamas;
     private String area;
-    private Integer cedulaDoctor;
+    private Doctor doctor;
 
     public Salon() {
 
     }
 
-    public Salon(int numSalon, int cantCamas, String area, Integer cedulaDoctor) {
+    public Salon(int numSalon, int cantCamas, String area, Doctor d) {
         this.numSalon = numSalon;
         this.cantCamas = cantCamas;
         this.area = area;
-        this.cedulaDoctor = cedulaDoctor;
+        this.doctor = d;
     }
 
     public int getNumSalon() {
@@ -52,12 +52,12 @@ public class Salon {
         this.area = area;
     }
 
-    public Integer getCedulaDoctor() {
-        return cedulaDoctor;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setCedulaDoctor(Integer cedulaDoctor) {
-        this.cedulaDoctor = cedulaDoctor;
+    public void setDoctor(Doctor d) {
+        this.doctor = d;
     }
 
 }

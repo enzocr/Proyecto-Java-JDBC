@@ -549,7 +549,12 @@ public class MantPaciente extends javax.swing.JFrame {
             Paciente obj = getBo().getById(cedula);
             List<Paciente> list = new ArrayList<>();
             list.add(obj);
-            fillTable(list);
+            if (list.get(0).getDireccion() == null) {
+                SwingUtilities.showJOptionPane("No hay registros");
+                cleanTextFields();
+            } else {
+                fillTable(list);
+            }
         }
 
     }//GEN-LAST:event_getByIdButtonActionPerformed
@@ -557,7 +562,12 @@ public class MantPaciente extends javax.swing.JFrame {
     private void getByNameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getByNameButtonActionPerformed
         if (SwingUtilities.includesValidChar(2, this.nombreTextField.getText())) {
             List<Paciente> list = getBo().getByName(this.nombreTextField.getText());
-            fillTable(list);
+            if (list.isEmpty()) {
+                SwingUtilities.showJOptionPane("No hay registros");
+                cleanTextFields();
+            } else {
+                fillTable(list);
+            }
         }
 
 

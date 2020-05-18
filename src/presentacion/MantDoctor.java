@@ -446,6 +446,9 @@ public class MantDoctor extends javax.swing.JFrame {
             return false;
         }
         if (!SwingUtilities.includesValidChar(3, this.salarioTextField.getText())) {
+            if (Integer.parseInt(this.salarioTextField.getText()) > 999999) {
+                SwingUtilities.showJOptionPane("Salario no puede exceder los 999.999");
+            }
             SwingUtilities.showJOptionPane("Digite salario del doctor");
             this.salarioTextField.setBorder(SwingUtilities.colorBorder(1));
             return false;
@@ -535,7 +538,14 @@ public class MantDoctor extends javax.swing.JFrame {
             Doctor d = getBo().getById(cedula);
             List<Doctor> list = new ArrayList<>();
             list.add(d);
-            fillTable(list);
+
+            if (list.get(0).getDireccion() == null) {
+                SwingUtilities.showJOptionPane("No hay registros");
+                cleanTextFields();
+            } else {
+                fillTable(list);
+            }
+
         }
 
     }//GEN-LAST:event_getByIdButtonActionPerformed
@@ -543,7 +553,12 @@ public class MantDoctor extends javax.swing.JFrame {
     private void getByNameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getByNameButtonActionPerformed
         if (SwingUtilities.includesValidChar(2, this.nombreTextField.getText())) {
             List<Doctor> list = getBo().getByName(this.nombreTextField.getText());
-            fillTable(list);
+            if (list.isEmpty()) {
+                SwingUtilities.showJOptionPane("No hay registros");
+                cleanTextFields();
+            } else {
+                fillTable(list);
+            }
         }
 
 
