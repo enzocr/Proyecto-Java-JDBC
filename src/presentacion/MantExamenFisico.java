@@ -441,6 +441,16 @@ public class MantExamenFisico extends javax.swing.JFrame {
         }
     }
 
+    private void fillDoctors(int cedulaDoctor) {
+        List<Doctor> list = getDbo().getAll();
+        this.doctorComboBox.addItem("---Seleccione doctor---");
+        for (Doctor d : list) {
+            if (cedulaDoctor != d.getCedula()) {
+                this.doctorComboBox.addItem(d.getCedula() + "-" + d.getNombre());
+            }
+        }
+    }
+
     private void fillPatients() {
         this.pacienteComboBox.removeAllItems();
         List<Paciente> list = getPbo().getAll();
@@ -495,28 +505,33 @@ public class MantExamenFisico extends javax.swing.JFrame {
 
             String doctor = this.doctorComboBox.getSelectedItem().toString();
             String[] infoDoc = doctor.trim().split("-");
-            Doctor d = getDbo().getById(Integer.parseInt(infoDoc[0]));
 
-            String paciente = this.pacienteComboBox.getSelectedItem().toString();
-            String[] infoPac = paciente.trim().split("-");
-            Paciente p = getPbo().getById(Integer.parseInt(infoPac[0]));
+            if (doctor.equals("---Seleccione doctor---")) {
+                SwingUtilities.showJOptionPane("Seleccionar nuevo doctor");
+            } else {
+                Doctor d = getDbo().getById(Integer.parseInt(infoDoc[0]));
+                String paciente = this.pacienteComboBox.getSelectedItem().toString();
+                String[] infoPac = paciente.trim().split("-");
+                Paciente p = getPbo().getById(Integer.parseInt(infoPac[0]));
 
-            ExamenFisico exf = new ExamenFisico(
-                    Integer.parseInt(this.codigoTextField.getText()),
-                    p,
-                    Integer.parseInt(this.pesoTextField.getText()),
-                    Double.parseDouble(this.alturaTextField.getText()),
-                    Integer.parseInt(this.presionArterialTextField.getText()),
-                    Double.parseDouble(this.temperaturaTextField.getText()),
-                    this.enfermedadTextField.getText(),
-                    d
-            );
-            int res = getBo().update(exf);
+                ExamenFisico exf = new ExamenFisico(
+                        Integer.parseInt(this.codigoTextField.getText()),
+                        p,
+                        Integer.parseInt(this.pesoTextField.getText()),
+                        Double.parseDouble(this.alturaTextField.getText()),
+                        Integer.parseInt(this.presionArterialTextField.getText()),
+                        Double.parseDouble(this.temperaturaTextField.getText()),
+                        this.enfermedadTextField.getText(),
+                        d
+                );
+                int res = getBo().update(exf);
 
-            SwingUtilities.updateSwitch(res);
+                SwingUtilities.updateSwitch(res);
+
+                cleanTextFields();
+            }
 
         }
-        cleanTextFields();
 
     }//GEN-LAST:event_updateButtonActionPerformed
 
@@ -652,6 +667,7 @@ public class MantExamenFisico extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
 
             this.pacienteComboBox.removeAllItems();
+            this.doctorComboBox.removeAllItems();
             int row = tableExamen.getSelectedRow();
             this.codigoTextField.setText(getTableExamen().getValueAt(row, 0).toString());
             this.pacienteComboBox.addItem(getTableExamen().getValueAt(row, 1).toString() + "-" + getTableExamen().getValueAt(row, 2).toString());
@@ -667,6 +683,7 @@ public class MantExamenFisico extends javax.swing.JFrame {
 
         }
 
+        fillDoctors((int) getTableExamen().getValueAt(tableExamen.getSelectedRow(), 8));
 
     }//GEN-LAST:event_tableExamenMouseClicked
 

@@ -11,7 +11,6 @@ import datos.PacienteDao;
 import java.util.ArrayList;
 import java.util.List;
 import negocio.clases.ExamenFisico;
-import negocio.clases.Paciente;
 
 /**
  *
@@ -49,7 +48,6 @@ public class ExamenFisicoBo {
             list.add(updated);
             i++;
         }
-
         return list;
     }
 
