@@ -27,6 +27,8 @@ public class DoctorDao {
         this.conn = new Conector();
         this.sentence = null;
     }
+    
+    
 
     public int insert(Doctor d) {
         try {
@@ -166,7 +168,7 @@ public class DoctorDao {
                         + " FROM simame.doctor "
                         + "WHERE cedula = ?"));
                 getSentence().setInt(1, cedula);
-                List<Doctor> all = new ArrayList<>();
+             //   List<Doctor> all = new ArrayList<>();
                 ResultSet result = getSentence().executeQuery();
                 while (result.next()) {
                     d.setCedula(result.getInt(1));
@@ -176,7 +178,7 @@ public class DoctorDao {
                     d.setSalario(result.getDouble(5));
                     d.setDireccion(result.getString("direccion"));
                     d.setTelefono(result.getInt("telefono"));
-                    all.add(d);
+                 //   all.add(d);
 
                 }
                 getConn().disconnect();
