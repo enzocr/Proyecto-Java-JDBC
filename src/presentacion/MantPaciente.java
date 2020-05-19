@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +31,8 @@ public class MantPaciente extends javax.swing.JFrame {
     public MantPaciente() {
 
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.edadTextField.setEnabled(false);
         this.bo = new PacienteBo();
         this.modelPaciente = new DefaultTableModel();
@@ -158,6 +162,7 @@ public class MantPaciente extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         edadTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        volverButton = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -172,7 +177,9 @@ public class MantPaciente extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setFocusCycleRoot(false);
 
         jLabel1.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 255));
@@ -311,6 +318,14 @@ public class MantPaciente extends javax.swing.JFrame {
 
         jLabel9.setText("Edad:");
 
+        volverButton.setForeground(new java.awt.Color(255, 0, 0));
+        volverButton.setText("Volver");
+        volverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -380,7 +395,8 @@ public class MantPaciente extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(edadTextField)
-                                            .addComponent(telefonoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
+                                            .addComponent(telefonoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)))
+                                    .addComponent(volverButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(21, 21, 21))
                             .addComponent(jScrollPane2))
                         .addGap(39, 39, 39))))
@@ -389,7 +405,9 @@ public class MantPaciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(volverButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -448,8 +466,8 @@ public class MantPaciente extends javax.swing.JFrame {
             this.nombreTextField.setBorder(SwingUtilities.colorBorder(1));
             return false;
         }
-        if (!SwingUtilities.includesValidChar(2, this.correoTextField.getText())) {
-            SwingUtilities.showJOptionPane("Digite apellido del doctor");
+        if (this.correoTextField.getText().isEmpty()) {
+            SwingUtilities.showJOptionPane("Digite correo del doctor");
             this.correoTextField.setBorder(SwingUtilities.colorBorder(1));
             return false;
         }
@@ -626,6 +644,12 @@ public class MantPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_profesionTextFieldActionPerformed
 
+    private void volverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverButtonActionPerformed
+        MenuPrincipal mant = new MenuPrincipal();
+        mant.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_volverButtonActionPerformed
+
     private void cleanTextFields() {
 
         this.numAseguradoTextField.setEnabled(true);
@@ -727,6 +751,7 @@ public class MantPaciente extends javax.swing.JFrame {
     private javax.swing.JTable tablePaciente;
     private javax.swing.JTextField telefonoTextField;
     private javax.swing.JButton updateButton;
+    private javax.swing.JButton volverButton;
     // End of variables declaration//GEN-END:variables
 
 }

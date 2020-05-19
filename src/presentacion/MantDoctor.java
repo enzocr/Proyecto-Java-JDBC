@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -24,6 +26,8 @@ public class MantDoctor extends javax.swing.JFrame {
      */
     public MantDoctor() {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.bo = new DoctorBo();
         this.modelDoctor = new DefaultTableModel();
         fillTable();
@@ -145,6 +149,7 @@ public class MantDoctor extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         especialidadTextField = new javax.swing.JTextField();
         insertButton = new javax.swing.JButton();
+        volverButton = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,7 +164,7 @@ public class MantDoctor extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 255));
@@ -307,12 +312,25 @@ public class MantDoctor extends javax.swing.JFrame {
             }
         });
 
+        volverButton.setForeground(new java.awt.Color(255, 0, 0));
+        volverButton.setText("Salir");
+        volverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(115, 115, 115)
+                        .addComponent(volverButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,16 +387,14 @@ public class MantDoctor extends javax.swing.JFrame {
                         .addComponent(telefonoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(39, 39, 39))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(221, 221, 221))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(volverButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -413,7 +429,7 @@ public class MantDoctor extends javax.swing.JFrame {
                     .addComponent(getByNameButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         pack();
@@ -453,7 +469,7 @@ public class MantDoctor extends javax.swing.JFrame {
             this.salarioTextField.setBorder(SwingUtilities.colorBorder(1));
             return false;
         }
-        if (!SwingUtilities.includesValidChar(2, this.direccionTextField.getText())) {
+        if (this.direccionTextField.getText().isEmpty()) {
             SwingUtilities.showJOptionPane("Digite direccion del doctor");
             this.direccionTextField.setBorder(SwingUtilities.colorBorder(1));
             return false;
@@ -624,6 +640,12 @@ public class MantDoctor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_especialidadTextFieldActionPerformed
 
+    private void volverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverButtonActionPerformed
+        MenuPrincipal mant = new MenuPrincipal();
+        mant.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_volverButtonActionPerformed
+
     private void cleanTextFields() {
 
         this.cedulaTextField.setEnabled(true);
@@ -722,6 +744,7 @@ public class MantDoctor extends javax.swing.JFrame {
     private javax.swing.JTable tableDoctor;
     private javax.swing.JTextField telefonoTextField;
     private javax.swing.JButton updateButton;
+    private javax.swing.JButton volverButton;
     // End of variables declaration//GEN-END:variables
 
 }

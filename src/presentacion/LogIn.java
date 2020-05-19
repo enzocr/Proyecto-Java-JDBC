@@ -5,14 +5,13 @@
  */
 package presentacion;
 
-import javax.accessibility.AccessibleContext;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import negocio.bo.LogInBo;
 import negocio.clases.Usuario;
-import sun.swing.SwingAccessor;
 import utilities.SwingUtilities;
 
 /**
@@ -30,6 +29,8 @@ public class LogIn extends javax.swing.JFrame {
     public LogIn() {
         initComponents();
         this.logIn = new LogInBo();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
 
     /**
@@ -64,6 +65,11 @@ public class LogIn extends javax.swing.JFrame {
                 ingresarButtonMouseClicked(evt);
             }
         });
+        ingresarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ingresarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,7 +99,7 @@ public class LogIn extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -101,9 +107,9 @@ public class LogIn extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addGap(18, 18, 18)
                 .addComponent(ingresarButton)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,7 +121,9 @@ public class LogIn extends javax.swing.JFrame {
 
         switch (getLogInBo().userExists(user)) {
             case 1:
-                 SwingUtilities.showJOptionPane("yuju");
+                MenuPrincipal mant = new MenuPrincipal();
+                mant.setVisible(true);
+                this.dispose();
                 break;
             case 2:
                 SwingUtilities.showJOptionPane("Datos incorrectos");
@@ -135,6 +143,10 @@ public class LogIn extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_ingresarButtonMouseClicked
+
+    private void ingresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarButtonActionPerformed
+
+    }//GEN-LAST:event_ingresarButtonActionPerformed
 
     /**
      * @param args the command line arguments

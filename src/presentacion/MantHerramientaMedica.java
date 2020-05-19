@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JSpinner;
@@ -27,6 +29,8 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
      */
     public MantHerramientaMedica() {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.bo = new HerramientaMedicaBo();
         this.modelHerramienta = new DefaultTableModel();
         fillTable();
@@ -131,6 +135,7 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
         spCantTotal = new javax.swing.JSpinner();
         spCantPrestada = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
+        volverButton = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,7 +150,7 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 255));
@@ -257,56 +262,69 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
 
         jLabel9.setText("Cantidad prestadal:");
 
+        volverButton.setForeground(new java.awt.Color(255, 0, 0));
+        volverButton.setText("Volver");
+        volverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(insertButton)
-                        .addGap(119, 119, 119)
-                        .addComponent(updateButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                        .addComponent(cleanButton)
-                        .addGap(107, 107, 107)
-                        .addComponent(deleteButton))
+                        .addGap(172, 172, 172)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(volverButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(codigoTextField)
-                            .addComponent(spCantTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spCantPrestada)
-                            .addComponent(descripcionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
-                        .addGap(21, 21, 21))
-                    .addComponent(jScrollPane2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(getByCodeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(getByDescButton)))
+                                .addComponent(insertButton)
+                                .addGap(119, 119, 119)
+                                .addComponent(updateButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                                .addComponent(cleanButton)
+                                .addGap(107, 107, 107)
+                                .addComponent(deleteButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel2))
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(codigoTextField)
+                                    .addComponent(spCantTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(spCantPrestada)
+                                    .addComponent(descripcionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
+                                .addGap(21, 21, 21))
+                            .addComponent(jScrollPane2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(getByCodeButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(getByDescButton)))))
                 .addGap(39, 39, 39))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(172, 172, 172)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(volverButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -496,6 +514,12 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_insertButtonActionPerformed
 
+    private void volverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverButtonActionPerformed
+        MenuPrincipal mant = new MenuPrincipal();
+        mant.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_volverButtonActionPerformed
+
     private void cleanTextFields() {
 
         this.codigoTextField.setEnabled(true);
@@ -583,6 +607,7 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
     private javax.swing.JSpinner spCantTotal;
     private javax.swing.JTable tableHerramienta;
     private javax.swing.JButton updateButton;
+    private javax.swing.JButton volverButton;
     // End of variables declaration//GEN-END:variables
 
 }

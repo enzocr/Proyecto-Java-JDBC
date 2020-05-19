@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -29,7 +31,8 @@ public class MantSalon extends javax.swing.JFrame {
      */
     public MantSalon() {
         initComponents();
-
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.bo = new SalonBo();
         this.dbo = new DoctorBo();
         this.modelSalon = new DefaultTableModel();
@@ -63,8 +66,9 @@ public class MantSalon extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tableSalon = new javax.swing.JTable();
         areaTextField = new javax.swing.JTextField();
+        volverButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Gadugi", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 255));
@@ -161,6 +165,14 @@ public class MantSalon extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tableSalon);
 
+        volverButton.setForeground(new java.awt.Color(255, 0, 0));
+        volverButton.setText("Volver");
+        volverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,7 +209,8 @@ public class MantSalon extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(37, 37, 37)
                                     .addComponent(areaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel5)))))
+                                .addComponent(jLabel5))
+                            .addComponent(volverButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +228,9 @@ public class MantSalon extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(volverButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -511,6 +526,12 @@ public class MantSalon extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tableSalonMouseClicked
 
+    private void volverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverButtonActionPerformed
+        MenuPrincipal mant = new MenuPrincipal();
+        mant.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_volverButtonActionPerformed
+
     private void cleanTextFields() {
 
         this.salonTextField.setEnabled(true);
@@ -573,6 +594,7 @@ public class MantSalon extends javax.swing.JFrame {
     private javax.swing.JTextField salonTextField;
     private javax.swing.JTable tableSalon;
     private javax.swing.JButton updateButton;
+    private javax.swing.JButton volverButton;
     // End of variables declaration//GEN-END:variables
   public DefaultTableModel getModelSalon() {
         return modelSalon;
