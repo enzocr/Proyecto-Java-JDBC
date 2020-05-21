@@ -176,10 +176,10 @@ public class SalonDao {
                         + "SET cant_camas = ?, area = ?, cedula_doctor = ? "
                         + "WHERE num_salon = ?"));
 
-                getSentence().setInt(1, s.getNumSalon());
-                getSentence().setInt(2, s.getCantCamas());
-                getSentence().setString(3, s.getArea());
-                getSentence().setInt(4, s.getDoctor().getCedula());
+                getSentence().setInt(1, s.getCantCamas());
+                getSentence().setString(2, s.getArea());
+                getSentence().setInt(3, s.getDoctor().getCedula());
+                getSentence().setInt(4, s.getNumSalon());
                 getSentence().executeUpdate();
                 getConn().disconnect();
 

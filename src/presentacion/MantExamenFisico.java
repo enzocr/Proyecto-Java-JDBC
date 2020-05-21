@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import negocio.bo.DoctorBo;
@@ -188,6 +187,11 @@ public class MantExamenFisico extends javax.swing.JFrame {
         insertButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 insertButtonMouseClicked(evt);
+            }
+        });
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertButtonActionPerformed(evt);
             }
         });
 
@@ -452,7 +456,7 @@ public class MantExamenFisico extends javax.swing.JFrame {
         List<Doctor> list = getDbo().getAll();
         this.doctorComboBox.addItem("---Seleccione doctor---");
         for (Doctor d : list) {
-            this.doctorComboBox.addItem(d.getCedula() + "-" + d.getNombre());
+            this.doctorComboBox.addItem(d.toString());
         }
     }
 
@@ -461,7 +465,7 @@ public class MantExamenFisico extends javax.swing.JFrame {
         this.doctorComboBox.addItem("---Seleccione doctor---");
         for (Doctor d : list) {
             if (cedulaDoctor != d.getCedula()) {
-                this.doctorComboBox.addItem(d.getCedula() + "-" + d.getNombre());
+                this.doctorComboBox.addItem(d.toString());
             }
         }
     }
@@ -482,11 +486,7 @@ public class MantExamenFisico extends javax.swing.JFrame {
             this.codigoTextField.setBorder(SwingUtilities.colorBorder(1));
             return false;
         }
-        if (!SwingUtilities.includesValidChar(2, this.enfermedadTextField.getText())) {
-            SwingUtilities.showJOptionPane("Digite enfermedad del paciente");
-            this.enfermedadTextField.setBorder(SwingUtilities.colorBorder(1));
-            return false;
-        }
+
         if (!SwingUtilities.includesValidChar(1, this.presionArterialTextField.getText())) {
             SwingUtilities.showJOptionPane("Digite presion alterial del paciente");
             this.presionArterialTextField.setBorder(SwingUtilities.colorBorder(1));
@@ -519,7 +519,7 @@ public class MantExamenFisico extends javax.swing.JFrame {
         if (validateData()) {
 
             String doctor = this.doctorComboBox.getSelectedItem().toString();
-            String[] infoDoc = doctor.trim().split("-");
+            String[] infoDoc = doctor.trim().split(",");
 
             if (doctor.equals("---Seleccione doctor---")) {
                 SwingUtilities.showJOptionPane("Seleccionar nuevo doctor");
@@ -644,27 +644,33 @@ public class MantExamenFisico extends javax.swing.JFrame {
             String doctor = this.doctorComboBox.getSelectedItem().toString();
             String paciente = this.pacienteComboBox.getSelectedItem().toString();
             if (!doctor.equals("---Seleccione doctor---") && !paciente.equals("---Seleccione paciente---")) {
-                String[] infoDoc = doctor.trim().split("-");
+                String[] infoDoc = doctor.trim().split(",");
                 Doctor d = getDbo().getById(Integer.parseInt(infoDoc[0]));
 
                 String[] infoPac = paciente.trim().split("-");
                 Paciente p = getPbo().getById(Integer.parseInt(infoPac[0]));
 
-                ExamenFisico exf = new ExamenFisico(
-                        Integer.parseInt(this.codigoTextField.getText()),
-                        p,
-                        Integer.parseInt(this.pesoTextField.getText()),
-                        Double.parseDouble(this.alturaTextField.getText()),
-                        Integer.parseInt(this.presionArterialTextField.getText()),
-                        Double.parseDouble(this.temperaturaTextField.getText()),
-                        this.enfermedadTextField.getText(),
-                        d
-                );
+                ExamenFisico exf = getBo().getByCode(Integer.parseInt(this.codigoTextField.getText()));
+                if (exf != null) {
+                    SwingUtilities.showJOptionPane("Ya existe un exámen con este código");
 
-                int res = getBo().insert(exf);
+                } else {
+                    exf = new ExamenFisico(
+                            Integer.parseInt(this.codigoTextField.getText()),
+                            p,
+                            Integer.parseInt(this.pesoTextField.getText()),
+                            Double.parseDouble(this.alturaTextField.getText()),
+                            Integer.parseInt(this.presionArterialTextField.getText()),
+                            Double.parseDouble(this.temperaturaTextField.getText()),
+                            this.enfermedadTextField.getText(),
+                            d
+                    );
 
-                SwingUtilities.registerSwitch(res);
-                cleanTextFields();
+                    int res = getBo().insert(exf);
+
+                    SwingUtilities.registerSwitch(res);
+                    cleanTextFields();
+                }
 
             } else {
                 SwingUtilities.showJOptionPane("Rellenar espacios vacíos");
@@ -691,14 +697,15 @@ public class MantExamenFisico extends javax.swing.JFrame {
             this.presionArterialTextField.setText(getTableExamen().getValueAt(row, 5).toString());
             this.temperaturaTextField.setText(getTableExamen().getValueAt(row, 6).toString());
             this.enfermedadTextField.setText(getTableExamen().getValueAt(row, 7).toString());
-            this.doctorComboBox.addItem(getTableExamen().getValueAt(row, 8).toString() + "-" + getTableExamen().getValueAt(row, 9).toString());
+            Doctor d = getDbo().getById((Integer) getTableExamen().getValueAt(row, 8));
+            this.doctorComboBox.addItem(d.toString());
 
             this.codigoTextField.setEnabled(false);
             this.pacienteComboBox.setEnabled(false);
 
+            fillDoctors((int) getTableExamen().getValueAt(tableExamen.getSelectedRow(), 8));
         }
 
-        fillDoctors((int) getTableExamen().getValueAt(tableExamen.getSelectedRow(), 8));
 
     }//GEN-LAST:event_tableExamenMouseClicked
 
@@ -707,6 +714,10 @@ public class MantExamenFisico extends javax.swing.JFrame {
         mant.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_volverButtonActionPerformed
+
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_insertButtonActionPerformed
 
     private void cleanTextFields() {
 

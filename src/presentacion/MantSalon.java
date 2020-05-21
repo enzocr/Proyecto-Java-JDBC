@@ -4,12 +4,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import negocio.bo.DoctorBo;
 import negocio.bo.SalonBo;
-import negocio.bo.PacienteBo;
 import negocio.clases.Doctor;
 import negocio.clases.Salon;
 import utilities.SwingUtilities;
@@ -345,7 +343,7 @@ public class MantSalon extends javax.swing.JFrame {
         List<Doctor> list = getDbo().getAll();
         this.doctorComboBox.addItem("---Seleccione doctor---");
         for (Doctor d : list) {
-            this.doctorComboBox.addItem(d.getCedula() + "-" + d.getNombre());
+            this.doctorComboBox.addItem(d.toString());
         }
     }
 
@@ -354,7 +352,7 @@ public class MantSalon extends javax.swing.JFrame {
         this.doctorComboBox.addItem("---Seleccione doctor---");
         for (Doctor d : list) {
             if (d.getCedula() != cedulaDoctor) {
-                this.doctorComboBox.addItem(d.getCedula() + "-" + d.getNombre());
+                this.doctorComboBox.addItem(d.toString());
             }
         }
     }
@@ -388,7 +386,7 @@ public class MantSalon extends javax.swing.JFrame {
         if (validateData()) {
 
             String doctor = this.doctorComboBox.getSelectedItem().toString();
-            String[] infoDoc = doctor.trim().split("-");
+            String[] infoDoc = doctor.trim().split(",");
 
             if (doctor.equals("---Seleccione doctor---")) {
                 SwingUtilities.showJOptionPane("Seleccione nuevo doctor");
@@ -480,20 +478,27 @@ public class MantSalon extends javax.swing.JFrame {
 
             String doctor = this.doctorComboBox.getSelectedItem().toString();
             if (!doctor.equals("---Seleccione doctor---")) {
-                String[] infoDoc = doctor.trim().split("-");
+                String[] infoDoc = doctor.trim().split(",");
                 Doctor d = getDbo().getById(Integer.parseInt(infoDoc[0]));
 
-                Salon s = new Salon(
-                        Integer.parseInt(this.salonTextField.getText()),
-                        Integer.parseInt(this.camasTextField.getText()),
-                        this.areaTextField.getText(),
-                        d
-                );
+                Salon s = getBo().getByNum(Integer.parseInt(this.salonTextField.getText()));
+                if (s != null) {
+                    SwingUtilities.showJOptionPane("Ya existe un salón con este #");
 
-                int res = getBo().insert(s);
+                } else {
 
-                SwingUtilities.registerSwitch(res);
-                cleanTextFields();
+                    s = new Salon(
+                            Integer.parseInt(this.salonTextField.getText()),
+                            Integer.parseInt(this.camasTextField.getText()),
+                            this.areaTextField.getText(),
+                            d
+                    );
+
+                    int res = getBo().insert(s);
+
+                    SwingUtilities.registerSwitch(res);
+                    cleanTextFields();
+                }
 
             } else {
                 SwingUtilities.showJOptionPane("Rellenar espacios vacíos");
@@ -515,13 +520,13 @@ public class MantSalon extends javax.swing.JFrame {
             this.salonTextField.setText(getTableExamen().getValueAt(row, 0).toString());
             this.camasTextField.setText(getTableExamen().getValueAt(row, 1).toString());
             this.areaTextField.setText(getTableExamen().getValueAt(row, 2).toString());
-            this.doctorComboBox.addItem(getTableExamen().getValueAt(row, 3).toString() + "-" + getTableExamen().getValueAt(row, 4).toString());
+            Doctor d = getDbo().getById((Integer) getTableExamen().getValueAt(row, 3));
+            this.doctorComboBox.addItem(d.toString());
 
             this.salonTextField.setEnabled(false);
 
+            fillDoctors((int) getTableExamen().getValueAt(tableSalon.getSelectedRow(), 3));
         }
-
-        fillDoctors((int) getTableExamen().getValueAt(tableSalon.getSelectedRow(), 3));
 
 
     }//GEN-LAST:event_tableSalonMouseClicked

@@ -623,19 +623,29 @@ public class MantPaciente extends javax.swing.JFrame {
 
         if (validateData()) {
 
-            Paciente p = new Paciente(
-                    Integer.parseInt(this.numAseguradoTextField.getText()),
-                    this.nombreTextField.getText(),
-                    this.direccionTextField.getText(),
-                    this.datePicker.getDate(),
-                    this.correoTextField.getText(),
-                    Integer.parseInt(this.telefonoTextField.getText()),
-                    this.profesionTextField.getText());
+            int cedula = Integer.parseInt(this.numAseguradoTextField.getText());
+            Paciente p = getBo().getById(cedula);
+            List<Paciente> list = new ArrayList<>();
+            list.add(p);
+            if (list.get(0).getDireccion() != null) {
+                SwingUtilities.showJOptionPane("Ya existe un paciente con este # de cédula");
 
-            int res = getBo().insert(p);
+            } else {
 
-            SwingUtilities.registerSwitch(res);
-            cleanTextFields();
+                p = new Paciente(
+                        Integer.parseInt(this.numAseguradoTextField.getText()),
+                        this.nombreTextField.getText(),
+                        this.direccionTextField.getText(),
+                        this.datePicker.getDate(),
+                        this.correoTextField.getText(),
+                        Integer.parseInt(this.telefonoTextField.getText()),
+                        this.profesionTextField.getText());
+
+                int res = getBo().insert(p);
+
+                SwingUtilities.registerSwitch(res);
+                cleanTextFields();
+            }
 
         }
     }//GEN-LAST:event_insertButtonMouseClicked

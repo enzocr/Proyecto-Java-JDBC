@@ -313,7 +313,7 @@ public class MantDoctor extends javax.swing.JFrame {
         });
 
         volverButton.setForeground(new java.awt.Color(255, 0, 0));
-        volverButton.setText("Salir");
+        volverButton.setText("Volver");
         volverButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 volverButtonActionPerformed(evt);
@@ -619,19 +619,30 @@ public class MantDoctor extends javax.swing.JFrame {
     private void insertButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertButtonMouseClicked
         if (validateData()) {
 
-            Doctor d = new Doctor(
-                    Integer.parseInt(this.cedulaTextField.getText()),
-                    this.nombreTextField.getText(),
-                    this.apellidoTextField.getText(),
-                    this.especialidadTextField.getText(),
-                    Double.parseDouble(this.salarioTextField.getText()),
-                    this.direccionTextField.getText(),
-                    Integer.parseInt(this.telefonoTextField.getText()));
+            int cedula = Integer.parseInt(this.cedulaTextField.getText());
+            Doctor d = getBo().getById(cedula);
+            List<Doctor> list = new ArrayList<>();
+            list.add(d);
 
-            int res = getBo().insert(d);
+            if (list.get(0).getDireccion() != null) {
+                SwingUtilities.showJOptionPane("Ya existe un doctor con esta cédula");
 
-            SwingUtilities.registerSwitch(res);
-            cleanTextFields();
+            } else {
+
+                d = new Doctor(
+                        Integer.parseInt(this.cedulaTextField.getText()),
+                        this.nombreTextField.getText(),
+                        this.apellidoTextField.getText(),
+                        this.especialidadTextField.getText(),
+                        Double.parseDouble(this.salarioTextField.getText()),
+                        this.direccionTextField.getText(),
+                        Integer.parseInt(this.telefonoTextField.getText()));
+
+                int res = getBo().insert(d);
+
+                SwingUtilities.registerSwitch(res);
+                cleanTextFields();
+            }
 
         }
     }//GEN-LAST:event_insertButtonMouseClicked

@@ -4,12 +4,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
-import javax.swing.SpinnerModel;
 import javax.swing.table.DefaultTableModel;
 import negocio.bo.HerramientaMedicaBo;
-import negocio.clases.Doctor;
 import negocio.clases.HerramientaMedica;
 import utilities.SwingUtilities;
 
@@ -29,6 +26,7 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
      */
     public MantHerramientaMedica() {
         initComponents();
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         this.bo = new HerramientaMedicaBo();
@@ -250,7 +248,7 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
             }
         });
 
-        spCantTotal.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        spCantTotal.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         spCantTotal.setEditor(new javax.swing.JSpinner.NumberEditor(spCantTotal, ""));
         spCantTotal.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -258,7 +256,7 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
             }
         });
 
-        spCantPrestada.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        spCantPrestada.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabel9.setText("Cantidad prestadal:");
 
@@ -488,16 +486,23 @@ public class MantHerramientaMedica extends javax.swing.JFrame {
             int cantTotal = (Integer) spCantTotal.getValue();
             int cantPrestada = (Integer) spCantPrestada.getValue();
 
-            HerramientaMedica hm = new HerramientaMedica(
-                    Integer.parseInt(this.codigoTextField.getText()),
-                    this.descripcionTextField.getText(),
-                    cantTotal,
-                    cantPrestada);
+            int codigo = Integer.parseInt(this.codigoTextField.getText());
+            HerramientaMedica hm = getBo().getByCode(codigo);
+            List<HerramientaMedica> list = new ArrayList<>();
+            list.add(hm);
+            if (list.get(0).getDescripcion() != null) {
+                SwingUtilities.showJOptionPane("Ya existe una herramienta médica con este código");
+            } else {
+                hm = new HerramientaMedica(
+                        Integer.parseInt(this.codigoTextField.getText()),
+                        this.descripcionTextField.getText(),
+                        cantTotal,
+                        cantPrestada);
 
-            int res = getBo().insert(hm);
-
-            SwingUtilities.registerSwitch(res);
-            cleanTextFields();
+                int res = getBo().insert(hm);
+                SwingUtilities.registerSwitch(res);
+                cleanTextFields();
+            }
 
         }
     }//GEN-LAST:event_insertButtonMouseClicked
