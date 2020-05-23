@@ -43,11 +43,11 @@ public class LogIn extends javax.swing.JFrame {
     private void initComponents() {
 
         userTextField = new javax.swing.JTextField();
-        passTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         ingresarButton = new javax.swing.JButton();
+        passwordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,9 +85,11 @@ public class LogIn extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ingresarButton)
-                            .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ingresarButton)
+                                .addGap(53, 53, 53))
+                            .addComponent(passwordField))))
                 .addContainerGap(142, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -106,7 +108,7 @@ public class LogIn extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ingresarButton)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -117,7 +119,7 @@ public class LogIn extends javax.swing.JFrame {
 
     private void ingresarButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarButtonMouseClicked
 
-        Usuario user = new Usuario(getUserTextField().getText(), getPassTextField().getText());
+        Usuario user = new Usuario(getUserTextField().getText(), this.passwordField.getText());
 
         switch (getLogInBo().userExists(user)) {
             case 1:
@@ -188,7 +190,7 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField passTextField;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables
 
@@ -232,13 +234,7 @@ public class LogIn extends javax.swing.JFrame {
         this.jLabel3 = jLabel3;
     }
 
-    public JTextField getPassTextField() {
-        return passTextField;
-    }
-
-    public void setPassTextField(JTextField passTextField) {
-        this.passTextField = passTextField;
-    }
+    
 
     public JTextField getUserTextField() {
         return userTextField;
